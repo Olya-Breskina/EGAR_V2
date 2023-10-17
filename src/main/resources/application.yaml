@@ -8,7 +8,7 @@ spring:
     driver_class_name:
       org.postgresql.Driver
     url:
-      jdbc:postgresql://localhost:5432/employeeEGAR
+      jdbc:postgresql://localhost:5432/EGAR
     username: ${DB_USER}
     password: ${DB_PASSWORD}
   jpa:

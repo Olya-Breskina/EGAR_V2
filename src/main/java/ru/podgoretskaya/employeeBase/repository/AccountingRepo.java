@@ -1,7 +1,7 @@
 package ru.podgoretskaya.employeeBase.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import ru.podgoretskaya.employeeBase.entity.AccountingEntity;
 
-public interface AccountingRepo  extends JpaRepository<AccountingEntity,Long> {
+public interface AccountingRepo extends CrudRepository<AccountingEntity, Long> {
 }

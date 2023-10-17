@@ -44,9 +44,4 @@ public class PersonMap implements Mapper<PersonEntity, PersonDTO> {
         return dto;
     }
 
-// todo смапить из DaysOffWork Entity в PersonDTO, чтобы передать в другой мс и получить AccountingDTO
-//    private  List<Vacation> vacations = new ArrayList<>();
-//    private  List<DayOff> dayOff = new ArrayList<>();
-//    private  List<SickDays> sickDays = new ArrayList<>();
-
 }

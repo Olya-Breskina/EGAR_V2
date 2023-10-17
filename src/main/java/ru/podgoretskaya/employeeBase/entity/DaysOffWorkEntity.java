@@ -1,9 +1,12 @@
 package ru.podgoretskaya.employeeBase.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
@@ -11,19 +14,24 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Employee_card")
+@Table(name = "days_off_work")
 public class DaysOffWorkEntity {
     @Id
-    @SequenceGenerator(name = "EmployeeCardGenerator", initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EmployeeCardGenerator")
-    @Column(name = "employee_card_id", nullable = false)
-    private Long employeeCardID;
+    @SequenceGenerator(name = "DaysOffWorkGenerator", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DaysOffWorkGenerator")
+    @Column(name = "days_off_work_id", nullable = false)
+    private Long id;
 
-    private LocalDate dayOff;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id")
+    @JsonIgnore
+    @ToString.Exclude
+    private PersonEntity person;
 
-    private LocalDate vacation_start;
-    private LocalDate vacation_end;
 
-    private LocalDate sick_days_start;
-    private LocalDate sick_days_end;
+    private LocalDate start;
+    private LocalDate finish;
+    @Schema(description = "absence_reason")
+    private String absenceReason;
+
 }

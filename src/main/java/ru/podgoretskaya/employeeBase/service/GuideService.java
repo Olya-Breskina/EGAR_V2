@@ -14,13 +14,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+// список всех сотрудников
 public class GuideService implements GetAll {
     private final PersonRepo personRepo;
     private final GuideMap guideMap;
 
     @Override
     public List<GuideDTO> getAll() {
-        List<PersonEntity> entity = personRepo.findAll();
+        List<PersonEntity> entity = (List<PersonEntity>) personRepo.findAll();
         return entity.stream().map(guideMap::toDto).collect(Collectors.toList());
     }
 }

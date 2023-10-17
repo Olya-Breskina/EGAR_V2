@@ -1,14 +1,17 @@
 package ru.podgoretskaya.employeeBase.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ru.podgoretskaya.employeeBase.dto.enums.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,16 +22,17 @@ public class PersonEntity {
     @Id
     @SequenceGenerator(name = "PersonGenerator", initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PersonGenerator")
-    @Column(name = "Person_id", nullable = false)
+    @Column(name = "person_id", nullable = false)
     private Long personID;
 
     @OneToOne
     @JoinColumn(name = "accounting_id")
     private AccountingEntity accountingEntity;
 
-    @OneToOne
-    @JoinColumn(name = "employee_card_id")
-    private DaysOffWorkEntity daysOffWorkEntity;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @JsonIgnore
+    @ToString.Exclude
+    private List<DaysOffWorkEntity> daysOffWorkEntity;
 
     private String lastName;
 

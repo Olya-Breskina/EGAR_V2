@@ -8,14 +8,47 @@ import ru.podgoretskaya.employeeBase.entity.DaysOffWorkEntity;
 
 @Component
 public class DaysOffWorkMap {
-    public DaysOffWorkEntity toEntity(DayOff dto, Vacation dto1, SickDays dto2) {
+    public DaysOffWorkEntity dayOffToEntity(DayOff dto) {
         DaysOffWorkEntity entity = new DaysOffWorkEntity();
-        entity.setDayOff(dto.getDate());
-        entity.setSick_days_start(dto2.getStart());
-        entity.setSick_days_end(dto2.getEnd());
-        entity.setVacation_start(dto1.getStart());
-        entity.setVacation_end(dto1.getEnd());
+        entity.setStart(dto.getDate());
+        entity.setFinish(dto.getDate());
+        entity.setAbsenceReason("DayOff");
         return entity;
     }
 
+    public DaysOffWorkEntity vacationToEntity(Vacation dto) {
+        DaysOffWorkEntity entity = new DaysOffWorkEntity();
+        entity.setStart(dto.getStart());
+        entity.setFinish(dto.getEnd());
+        entity.setAbsenceReason("Vacation");
+        return entity;
+    }
+
+    public DaysOffWorkEntity sickDaysToEntity(SickDays dto) {
+        DaysOffWorkEntity entity = new DaysOffWorkEntity();
+        entity.setStart(dto.getStart());
+        entity.setFinish(dto.getEnd());
+        entity.setAbsenceReason("SickDays");
+        return entity;
+    }
+
+    public DayOff dayOffToDTO(DaysOffWorkEntity entity) {
+        DayOff dto = new DayOff();
+        dto.setDate(entity.getStart());
+        return dto;
+    }
+
+    public Vacation vacationToDTO(DaysOffWorkEntity entity) {
+        Vacation dto = new Vacation();
+        dto.setStart(entity.getStart());
+        dto.setEnd(entity.getFinish());
+        return dto;
+    }
+
+    public SickDays sickDaysToDTO(DaysOffWorkEntity entity) {
+        SickDays dto = new SickDays();
+        dto.setStart(entity.getStart());
+        dto.setEnd(entity.getFinish());
+        return dto;
+    }
 }
