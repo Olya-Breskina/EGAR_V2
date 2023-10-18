@@ -28,9 +28,9 @@ public class APIController {
 
     @PostMapping(value = "/save")
     @Operation(summary = "сохранение данных сотрудников в базу")
-    public ResponseEntity<Long> saveInDB(@Valid @RequestBody PersonDTO dto) {
+    public ResponseEntity<String > saveInDB(@Valid @RequestBody PersonDTO dto) {
         log.info("\n>>>>>>>>> "+ "вызов /save/. Параметры: \"" + dto.toString() + " <<<<<<<<<\n");
-        return ResponseEntity.ok(saveInDB.savePerson(dto));
+        return new ResponseEntity<>(saveInDB.savePerson(dto), HttpStatus.OK);
     }
 
     @PostMapping(value = "/card/{id}")

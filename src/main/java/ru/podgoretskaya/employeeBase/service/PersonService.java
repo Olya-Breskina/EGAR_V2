@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
+import ru.podgoretskaya.employeeBase.client.AccountingClient;
 import ru.podgoretskaya.employeeBase.dto.DayOff;
 import ru.podgoretskaya.employeeBase.dto.PersonDTO;
 import ru.podgoretskaya.employeeBase.dto.SickDays;
@@ -17,7 +18,6 @@ import ru.podgoretskaya.employeeBase.repository.AccountingRepo;
 import ru.podgoretskaya.employeeBase.repository.DaysOffWorkRepo;
 import ru.podgoretskaya.employeeBase.repository.PersonRepo;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -31,22 +31,23 @@ public class PersonService implements SaveInDB {
     private final AccountingRepo accountingRepo;
     private final DaysOffWorkMap daysOffWorkMap;
     private final DaysOffWorkRepo daysOffWorkRepo;
+    private final AccountingClient accountingClient;
 
     @Override
-    public Long savePerson(PersonDTO dto) {
+    public String savePerson(PersonDTO dto) {
         PersonEntity personEntity;
         try {
-            personEntity = personRepo.save(personMap.toEntity(dto));
-            return personEntity.getPersonID();
+            personEntity = personRepo.save(personMap.toEntity(getValidate(dto)));
+            return "Табельнрый номер: " + personEntity.getPersonID();
         } catch (HttpMessageNotReadableException e) {
-            return Long.valueOf(0);
+            return null;
         }
     }
 
     @Override
     public void saveDayOff(DayOff dto, Long id) {
         DaysOffWorkEntity daysOffWorkEntity;
-        PersonEntity personEntity =  personRepo.findById(id).orElseThrow(NoSuchElementException::new);
+        PersonEntity personEntity = personRepo.findById(id).orElseThrow(NoSuchElementException::new);
         daysOffWorkEntity = daysOffWorkRepo.save(daysOffWorkMap.dayOffToEntity(dto));
         daysOffWorkEntity.setPerson(personEntity);
         personRepo.save(personEntity);
@@ -56,8 +57,8 @@ public class PersonService implements SaveInDB {
     public void saveVacation(Vacation dto, Long id) {
         DaysOffWorkEntity daysOffWorkEntity;
         PersonEntity personEntity;
-        personEntity = personRepo.findById(id).orElseThrow(NoSuchElementException:: new);
-        daysOffWorkEntity= daysOffWorkRepo.save(daysOffWorkMap.vacationToEntity(dto));
+        personEntity = personRepo.findById(id).orElseThrow(NoSuchElementException::new);
+        daysOffWorkEntity = daysOffWorkRepo.save(daysOffWorkMap.vacationToEntity(dto));
         daysOffWorkEntity.setPerson(personEntity);
         personRepo.save(personEntity);
 
@@ -67,10 +68,14 @@ public class PersonService implements SaveInDB {
     public void saveSickDays(SickDays dto, Long id) {
         DaysOffWorkEntity daysOffWorkEntity;
         PersonEntity personEntity;
-        personEntity = personRepo.findById(id).orElseThrow(NoSuchElementException:: new);
-        daysOffWorkEntity= daysOffWorkRepo.save(daysOffWorkMap.sickDaysToEntity(dto));
+        personEntity = personRepo.findById(id).orElseThrow(NoSuchElementException::new);
+        daysOffWorkEntity = daysOffWorkRepo.save(daysOffWorkMap.sickDaysToEntity(dto));
         daysOffWorkEntity.setPerson(personEntity);
         personRepo.save(personEntity);
+    }
+
+    private PersonDTO getValidate(PersonDTO personDTO) {
+        return accountingClient.getCard(personDTO).getBody();
     }
 }
 
