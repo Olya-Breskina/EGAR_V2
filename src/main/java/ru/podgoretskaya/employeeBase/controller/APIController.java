@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.podgoretskaya.employeeBase.dto.*;
 import ru.podgoretskaya.employeeBase.service.GetAll;
 import ru.podgoretskaya.employeeBase.service.GetCard;
+import ru.podgoretskaya.employeeBase.service.GetSettlement;
 import ru.podgoretskaya.employeeBase.service.SaveInDB;
 
 import java.util.List;
@@ -25,11 +26,12 @@ public class APIController {
     private final SaveInDB saveInDB;
     private final GetCard getCard;
     private final GetAll getAll;
+    private final GetSettlement getSettlement;
 
     @PostMapping(value = "/save")
     @Operation(summary = "сохранение данных сотрудников в базу")
-    public ResponseEntity<String > saveInDB(@Valid @RequestBody PersonDTO dto) {
-        log.info("\n>>>>>>>>> "+ "вызов /save/. Параметры: \"" + dto.toString() + " <<<<<<<<<\n");
+    public ResponseEntity<String> saveInDB(@Valid @RequestBody PersonDTO dto) {
+        log.info("\n>>>>>>>>> " + "вызов /save/. Параметры: \"" + dto.toString() + " <<<<<<<<<\n");
         return new ResponseEntity<>(saveInDB.savePerson(dto), HttpStatus.OK);
     }
 
@@ -66,6 +68,13 @@ public class APIController {
     public void saveSickDays(@Valid @RequestBody SickDays dto, @RequestParam("id") Long id) {
         log.info("\n>>>>>>>>> " + "вызов //sickDays/{id}. Параметры: \"" + dto.toString() + " " + id + " <<<<<<<<<\n");
         saveInDB.saveSickDays(dto, id);
+    }
+
+    @PostMapping(value = "/getSettlement/{id}")
+    @Operation(summary = "получение расчетки сотрудника")
+    public ResponseEntity<AccountingDTO> getSettlement(@RequestParam("id") Long id) {
+        log.info("\n>>>>>>>>> " + "вызов //getSettlement/{id}. Параметры: \"" + id + " <<<<<<<<<\n");
+        return new ResponseEntity<>(getSettlement.getSettlement(id), HttpStatus.OK);
     }
 
 }

@@ -10,6 +10,7 @@ public class AccountingMap implements Mapper<AccountingEntity, AccountingDTO> {
     public AccountingEntity toEntity(AccountingDTO dto) {
         AccountingEntity entity = new AccountingEntity();
         entity.setWorkDays(dto.getWorkDays());
+        entity.setSalaryOfWorkDays(dto.getSalaryOfWorkDays());
         entity.setDaysOfDayOff(dto.getDaysOfDayOff());
         entity.setSalaryOfDayOff(dto.getSalaryOfDayOff());
         entity.setDaysOfVacation(dto.getDaysOfVacation());

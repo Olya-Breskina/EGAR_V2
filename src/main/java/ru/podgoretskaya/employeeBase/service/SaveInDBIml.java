@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 @Slf4j
 // сохранение в бд
-public class PersonService implements SaveInDB {
+public class SaveInDBIml implements SaveInDB {
     private final PersonMap personMap;
     private final PersonRepo personRepo;
     private final AccountingMap accountingMap;

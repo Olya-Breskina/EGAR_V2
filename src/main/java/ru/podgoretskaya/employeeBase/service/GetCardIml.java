@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class EmployeeCardService implements GetCard {
+public class GetCardIml implements GetCard {
     private final PersonRepo personRepo;
     private final EmployeeCardMap employeeCardMap;
 
