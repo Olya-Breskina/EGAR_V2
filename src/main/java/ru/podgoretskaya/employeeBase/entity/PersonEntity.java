@@ -51,7 +51,6 @@ public class PersonEntity {
     @Enumerated(EnumType.STRING)
     private GradeEnum grade;
 
-    @Schema(description = "номер телефона")
     private String phoneNumber;
 
     private String email;
@@ -63,7 +62,7 @@ public class PersonEntity {
     @Column(name = "working_mode")
     private WorkingModeEnum workingMode;
 
-    @Column(name = "work_experience_Current")
+    @Column(name = "work_experience_current")
     private Double workExperienceCurrent;
 
     private BigDecimal salary;

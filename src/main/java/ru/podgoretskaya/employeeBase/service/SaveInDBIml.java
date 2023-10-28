@@ -27,11 +27,10 @@ import java.util.NoSuchElementException;
 public class SaveInDBIml implements SaveInDB {
     private final PersonMap personMap;
     private final PersonRepo personRepo;
-    private final AccountingMap accountingMap;
-    private final AccountingRepo accountingRepo;
     private final DaysOffWorkMap daysOffWorkMap;
     private final DaysOffWorkRepo daysOffWorkRepo;
     private final AccountingClient accountingClient;
+
 
     @Override
     public String savePerson(PersonDTO dto) {

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: /db/change-logs/create-table-accounting.xml
+  - include:
+      file: /db/change-logs/create-table-person.xml
+  - include:
+      file: /db/change-logs/create-table-daysOffWork.xml

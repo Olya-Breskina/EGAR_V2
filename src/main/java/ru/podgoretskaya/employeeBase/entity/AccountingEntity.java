@@ -20,25 +20,25 @@ public class AccountingEntity {
     @Column(name = "accounting_id", nullable = false)
     private Long accountingID;
 
-    @Schema(description = "work_days")
+    @Column(name = "work_days")
     private long workDays;
-    @Schema(description = "salary_of_work_days")
+    @Column(name = "salary_of_work_days")
     private BigDecimal salaryOfWorkDays;
-    @Schema(description = "days_of_Vacation")
+    @Column(name = "days_of_vacation")
     private long daysOfVacation;
-    @Schema(description = "salary_of_work_days")
+    @Column(name = "salary_of_vacation")
     private BigDecimal salaryOfVacation;
-    @Schema(description = "days_of_day_off")
+    @Column(name = "days_of_day_off")
     private long daysOfDayOff;
-    @Schema(description = "salary_of_day_off")
+    @Column(name = "salary_of_day_off")
     private BigDecimal salaryOfDayOff;
-    @Schema(description = "days_of_sick_day")
+    @Column(name = "days_of_sick_day")
     private long daysOfSickDay;
-    @Schema(description = "salary_of_sick_day")
+    @Column(name = "salary_of_sick_day")
     private BigDecimal salaryOfSickDay;
-    @Schema(description = "salary_gross")
+    @Column(name = "salary_gross")
     private BigDecimal salaryGROSS;
     private BigDecimal tax;
-    @Schema(description = "salary_on_handy")
+    @Column(name = "salary_on_handy")
     private BigDecimal salaryOnHandy;
 }

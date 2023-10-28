@@ -31,7 +31,7 @@ public class DaysOffWorkEntity {
 
     private LocalDate start;
     private LocalDate finish;
-    @Schema(description = "absence_reason")
+    @Column(name = "absence_reason")
     private String absenceReason;
 
 }
