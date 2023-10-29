@@ -1,0 +1,15 @@
+{
+  "lastName": "Абрамов",
+  "firstName": "Иван",
+  "middleName": "Сергеевич",
+  "birthdate": "1957-10-27",
+  "position": "ANALYST",
+  "department": "ACCOUNTING",
+  "grade": "MIDDLE",
+  "phoneNumber": "9751584693",
+  "email": "ab@mail.ru",
+  "occupancy": "OFFICEWORK",
+  "workingMode": "FROM_9_TO_18",
+  "workExperienceCurrent":3.5,
+  "salary": 450000
+}

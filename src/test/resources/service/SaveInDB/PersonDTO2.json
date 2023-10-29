@@ -1,0 +1,15 @@
+{
+  "lastName": "Ильясов",
+  "firstName": "Ринат",
+  "middleName": "Ряшидович",
+  "birthdate": "2001-08-02",
+  "position": "QA",
+  "department": "BDS",
+  "grade": "JUNIOR",
+  "phoneNumber": "9463159730",
+  "email": "irr@mail.ru",
+  "occupancy": "HYBRIDWORK",
+  "workingMode": "ALL_DAY_ALL_NIGHT",
+  "workExperienceCurrent":1,
+  "salary": 48000
+}

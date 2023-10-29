@@ -18,8 +18,8 @@ public class GetCardIml implements GetCard {
     private final EmployeeCardMap employeeCardMap;
 
     @Override
-    public EmployeeCardDTO getCard(Long applicationId) {
-        PersonEntity entity = personRepo.findById(applicationId).orElseThrow(NoSuchElementException::new);
+    public EmployeeCardDTO getCard(Long id) {
+        PersonEntity entity = personRepo.findById(id).orElseThrow(NoSuchElementException::new);
         return employeeCardMap.toDto(entity);
     }
 }
