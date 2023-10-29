@@ -37,12 +37,12 @@ public class APIController {
 
     @PostMapping(value = "/card/{id}")
     @Operation(summary = "получение карточки сотрудника по его ID")
-    public ResponseEntity<EmployeeCardDTO> getCard(@RequestParam("id") Long applicationId) {
+    public ResponseEntity<EmployeeCardDTO> getCard(@PathVariable("id") Long applicationId) {
         log.info("\n>>>>>>>>> " + "вызов /card/{applicationId}. Параметры: \"" + applicationId + " <<<<<<<<<\n");
         return new ResponseEntity<>(getCard.getCard(applicationId), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/guide")
+    @GetMapping(value = "/guide")
     @Operation(summary = "получение списка всех сотрудников")
     public ResponseEntity<List<GuideDTO>> getGuide() {
         log.info("\n>>>>>>>>> " + "вызов /guide \"" + " <<<<<<<<<\n");
@@ -51,28 +51,28 @@ public class APIController {
 
     @PostMapping(value = "/daysOffWork/{id}")
     @Operation(summary = "сохранение отгула сотруднику")
-    public void saveDaysOffWork(@Valid @RequestBody DayOff dto, @RequestParam("id") Long id) {
+    public void saveDaysOffWork(@Valid @RequestBody DayOff dto,@PathVariable("id") Long id) {
         log.info("\n>>>>>>>>> " + "вызов /daysOffWork/{id}. Параметры: \"" + dto.toString() + " " + id + " <<<<<<<<<\n");
         saveInDB.saveDayOff(dto, id);
     }
 
     @PostMapping(value = "/vacation/{id}")
     @Operation(summary = "сохранение отпуска сотруднику")
-    public void saveVacation(@Valid @RequestBody Vacation dto, @RequestParam("id") Long id) {
+    public void saveVacation(@Valid @RequestBody Vacation dto, @PathVariable("id") Long id) {
         log.info("\n>>>>>>>>> " + "вызов /vacation/{id}. Параметры: \"" + dto.toString() + " " + id + " <<<<<<<<<\n");
         saveInDB.saveVacation(dto, id);
     }
 
     @PostMapping(value = "/sickDays/{id}")
     @Operation(summary = "сохранение больничного сотруднику")
-    public void saveSickDays(@Valid @RequestBody SickDays dto, @RequestParam("id") Long id) {
+    public void saveSickDays(@Valid @RequestBody SickDays dto, @PathVariable("id") Long id) {
         log.info("\n>>>>>>>>> " + "вызов //sickDays/{id}. Параметры: \"" + dto.toString() + " " + id + " <<<<<<<<<\n");
         saveInDB.saveSickDays(dto, id);
     }
 
     @PostMapping(value = "/getSettlement/{id}")
     @Operation(summary = "получение расчетки сотрудника")
-    public ResponseEntity<AccountingDTO> getSettlement(@RequestParam("id") Long id) {
+    public ResponseEntity<AccountingDTO> getSettlement(@PathVariable("id") Long id) {
         log.info("\n>>>>>>>>> " + "вызов //getSettlement/{id}. Параметры: \"" + id + " <<<<<<<<<\n");
         return new ResponseEntity<>(getSettlement.getSettlement(id), HttpStatus.OK);
     }
