@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,11 +26,11 @@ class GetAllImlTest {
     ObjectMapper objectMapper = new ObjectMapper();
     PersonRepo personRepo = Mockito.mock(PersonRepo.class);
     GuideMap guideMap = new GuideMap();
-    GetAllIml getAllIml = new GetAllIml(personRepo, guideMap);
+    GetAll getAll = new GetAllIml(personRepo, guideMap);
     PersonMap personMap = new PersonMap();
 
     @BeforeEach
-    void beforeAll() {
+    void beforeEach() {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -47,7 +48,8 @@ class GetAllImlTest {
         Mockito.when(personRepo.findAll()).thenReturn(listP);
 
 
-        List<GuideDTO> guideDTO = getAllIml.getAll();
+        List<GuideDTO> guideDTO = getAll.getAll();
         assertNotNull(guideDTO);
+        assertEquals(2, guideDTO.size());
     }
 }

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,11 +40,11 @@ class GetSettlementImlTest {
     AccountingMap accountingMap = new AccountingMap();
     AccountingRepo accountingRepo = Mockito.mock(AccountingRepo.class);
     CalculationMap calculationMap = new CalculationMap(daysOffWorkMap);
-    GetSettlementIml getSettlementIml = new GetSettlementIml(accountingClient, personRepo, daysOffWorkRepo, accountingMap, accountingRepo, calculationMap);
+    GetSettlement getSettlement = new GetSettlementIml(accountingClient, personRepo, daysOffWorkRepo, accountingMap, accountingRepo, calculationMap);
     PersonMap personMap = new PersonMap();
 
     @BeforeEach
-    void beforeAll() {
+    void beforeEach() {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -63,7 +64,6 @@ class GetSettlementImlTest {
         listD.add(daysOffWorkEntity);
         listD.add(daysOffWorkEntity2);
         listD.add(daysOffWorkEntity3);
-        //  CalculationDTO calculationDTO = calculationMap.toDto(personEntity, listD);
         AccountingDTO accountingDTO = objectMapper.readValue(new File("src/test/resources/service/SaveInDB/AccountingDTO.json"), AccountingDTO.class);
         Mockito.when(accountingClient.getSettlement(Mockito.any())).thenReturn(ResponseEntity.ok(accountingDTO));
         AccountingEntity accountingEntity = accountingMap.toEntity(accountingDTO);
@@ -71,25 +71,9 @@ class GetSettlementImlTest {
         personEntity.setAccountingEntity(accountingEntity);
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
 
-        AccountingDTO accountingDTO2 = getSettlementIml.getSettlement(id);
+        AccountingDTO accountingDTO2 = getSettlement.getSettlement(id);
         assertNotNull(accountingDTO2);
+        assertEquals(4, accountingDTO2.getDaysOfSickDay());
+        assertEquals(9, accountingDTO2.getWorkDays());
     }
 }
-/*
-  @Override
-    public AccountingDTO getSettlement(Long id) {
-        PersonEntity personEntity = personRepo.findById(id).orElseThrow(NoSuchElementException::new);
-        List<DaysOffWorkEntity> byPersonId = daysOffWorkRepo.findByPerson(personEntity);
-        CalculationDTO calculationDTO = calculationMap.toDto(personEntity, byPersonId);
-        AccountingDTO accountingDTO = jsonCollecting(calculationDTO);
-        AccountingEntity accountingEntity = accountingMap.toEntity(accountingDTO);
-        accountingRepo.save(accountingEntity);
-        personEntity.setAccountingEntity(accountingEntity);
-        personRepo.save(personEntity);
-        return accountingDTO;
-    }
-
-    private AccountingDTO jsonCollecting(CalculationDTO calculationDTO) {
-        return accountingClient.getSettlement(calculationDTO).getBody();
-    }
- */

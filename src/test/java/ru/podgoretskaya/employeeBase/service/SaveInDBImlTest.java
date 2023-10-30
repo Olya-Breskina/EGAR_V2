@@ -10,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import ru.podgoretskaya.employeeBase.client.AccountingClient;
 import ru.podgoretskaya.employeeBase.dto.*;
-import ru.podgoretskaya.employeeBase.entity.AccountingEntity;
 import ru.podgoretskaya.employeeBase.entity.DaysOffWorkEntity;
 import ru.podgoretskaya.employeeBase.entity.PersonEntity;
 import ru.podgoretskaya.employeeBase.mapper.DaysOffWorkMap;
@@ -30,10 +29,10 @@ class SaveInDBImlTest {
     PersonMap personMap = new PersonMap();
     DaysOffWorkMap daysOffWorkMap = new DaysOffWorkMap();
     AccountingClient accountingClient = Mockito.mock(AccountingClient.class);
-    SaveInDBIml saveInDBIml = new SaveInDBIml(personMap, personRepo, daysOffWorkMap, daysOffWorkRepo, accountingClient);
+    SaveInDB saveInDB = new SaveInDBIml(personMap, personRepo, daysOffWorkMap, daysOffWorkRepo, accountingClient);
 
     @BeforeEach
-    void beforeAll() {
+    void beforeEach() {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -44,7 +43,7 @@ class SaveInDBImlTest {
         PersonEntity personEntity = personMap.toEntity(personDTO);
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
 
-        saveInDBIml.savePerson(personDTO);
+        saveInDB.savePerson(personDTO);
 
         Mockito.verify(personRepo).save(personEntity);
         Mockito.verify(accountingClient).getCard(personDTO);
@@ -62,7 +61,7 @@ class SaveInDBImlTest {
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
         Mockito.when(daysOffWorkRepo.save(Mockito.any())).thenReturn(daysOffWorkEntity);
 
-        saveInDBIml.saveDayOff(dto,id);
+        saveInDB.saveDayOff(dto,id);
 
         Mockito.verify(personRepo).save(personEntity);
     }
@@ -78,7 +77,7 @@ class SaveInDBImlTest {
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
         Mockito.when(daysOffWorkRepo.save(Mockito.any())).thenReturn(daysOffWorkEntity);
 
-        saveInDBIml.saveVacation(dto,id);
+        saveInDB.saveVacation(dto,id);
 
         Mockito.verify(personRepo).save(personEntity);
     }
@@ -94,7 +93,7 @@ class SaveInDBImlTest {
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
         Mockito.when(daysOffWorkRepo.save(Mockito.any())).thenReturn(daysOffWorkEntity);
 
-        saveInDBIml.saveSickDays(dto,id);
+        saveInDB.saveSickDays(dto,id);
 
         Mockito.verify(personRepo).save(personEntity);
     }
