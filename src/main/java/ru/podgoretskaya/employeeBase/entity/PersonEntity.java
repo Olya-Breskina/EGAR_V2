@@ -20,8 +20,7 @@ import java.util.List;
 @Table(name = "Person")
 public class PersonEntity {
     @Id
-    @SequenceGenerator(name = "PersonGenerator", initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PersonGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id", nullable = false)
     private Long personID;
 

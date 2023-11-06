@@ -1,0 +1,44 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: dockeruser
+      POSTGRES_PASSWORD: dockerpassword
+      POSTGRES_DB: dockerdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  accounting:
+    image: accounting:latest
+    ports:
+      - "8081:8081"
+  gateway:
+    image:   gateway:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      -   app
+      - accounting
+    environment:
+      EMPLOYEE_URL: http://app:8082/
+      ACCOUNTING_URL: http://accounting:8081/
+  app:
+    image: employee:latest
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+      - accounting
+    environment:
+#       отружение: базу, мс1, LIQUIBASE
+      DB_URL: jdbc:postgresql://postgres:5432/dockerdb
+      DB_USER: dockeruser
+      DB_PASSWORD: dockerpassword
+      APP_ACCOUNTING_CLIENT: http://accounting:8081/accounting
+      LIQUIBASE_ENABLED: true
+
+volumes:
+  postgres-data:
+

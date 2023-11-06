@@ -9,7 +9,7 @@ import ru.podgoretskaya.employeeBase.dto.AccountingDTO;
 import ru.podgoretskaya.employeeBase.dto.CalculationDTO;
 import ru.podgoretskaya.employeeBase.dto.PersonDTO;
 
-@FeignClient(name = "accounting", url = "http://localhost:8081/accounting")
+@FeignClient(name = "accounting", url = "${app.accounting-client}")
 public interface AccountingClient {
     @PostMapping(value = "/getCard")
     ResponseEntity<PersonDTO> getCard(@Valid @RequestBody PersonDTO model);

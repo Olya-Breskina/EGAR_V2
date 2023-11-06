@@ -17,8 +17,7 @@ import java.time.LocalDate;
 @Table(name = "days_off_work")
 public class DaysOffWorkEntity {
     @Id
-    @SequenceGenerator(name = "DaysOffWorkGenerator", initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DaysOffWorkGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "days_off_work_id", nullable = false)
     private Long id;
 

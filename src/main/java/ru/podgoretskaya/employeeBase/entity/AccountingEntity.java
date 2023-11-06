@@ -15,8 +15,7 @@ import java.math.BigDecimal;
 @Table(name = "Accounting")
 public class AccountingEntity {
     @Id
-    @SequenceGenerator(name = "AccountingGenerator", initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AccountingGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accounting_id", nullable = false)
     private Long accountingID;
 
