@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-class GetSettlementImlTest {
+class SettlementServiceImlTestService {
     ObjectMapper objectMapper = new ObjectMapper();
     DaysOffWorkMap daysOffWorkMap = new DaysOffWorkMap();
     AccountingClient accountingClient = Mockito.mock(AccountingClient.class);
@@ -40,7 +40,7 @@ class GetSettlementImlTest {
     AccountingMap accountingMap = new AccountingMap();
     AccountingRepo accountingRepo = Mockito.mock(AccountingRepo.class);
     CalculationMap calculationMap = new CalculationMap(daysOffWorkMap);
-    GetSettlement getSettlement = new GetSettlementIml(accountingClient, personRepo, daysOffWorkRepo, accountingMap, accountingRepo, calculationMap);
+    SettlementService settlementService = new SettlementServiceIml(accountingClient, personRepo, daysOffWorkRepo, accountingMap, accountingRepo, calculationMap);
     PersonMap personMap = new PersonMap();
 
     @BeforeEach
@@ -71,7 +71,7 @@ class GetSettlementImlTest {
         personEntity.setAccountingEntity(accountingEntity);
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
 
-        AccountingDTO accountingDTO2 = getSettlement.getSettlement(id);
+        AccountingDTO accountingDTO2 = settlementService.getSettlement(id);
         assertNotNull(accountingDTO2);
         assertEquals(4, accountingDTO2.getDaysOfSickDay());
         assertEquals(9, accountingDTO2.getWorkDays());

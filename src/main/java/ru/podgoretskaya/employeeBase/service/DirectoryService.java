@@ -4,6 +4,6 @@ import ru.podgoretskaya.employeeBase.dto.GuideDTO;
 
 import java.util.List;
 
-public interface GetAll {
+public interface DirectoryService {
     List<GuideDTO> getAll();
 }

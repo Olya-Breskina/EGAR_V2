@@ -22,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-class GetAllImlTest {
+class DirectoryServiceImlTest {
     ObjectMapper objectMapper = new ObjectMapper();
     PersonRepo personRepo = Mockito.mock(PersonRepo.class);
     GuideMap guideMap = new GuideMap();
-    GetAll getAll = new GetAllIml(personRepo, guideMap);
+    DirectoryService directoryService = new DirectoryServiceIml(personRepo, guideMap);
     PersonMap personMap = new PersonMap();
 
     @BeforeEach
@@ -48,7 +48,7 @@ class GetAllImlTest {
         Mockito.when(personRepo.findAll()).thenReturn(listP);
 
 
-        List<GuideDTO> guideDTO = getAll.getAll();
+        List<GuideDTO> guideDTO = directoryService.getAll();
         assertNotNull(guideDTO);
         assertEquals(2, guideDTO.size());
     }

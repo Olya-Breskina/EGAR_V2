@@ -6,15 +6,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import ru.podgoretskaya.employeeBase.service.GetAll;
-import ru.podgoretskaya.employeeBase.service.GetCard;
-import ru.podgoretskaya.employeeBase.service.GetSettlement;
-import ru.podgoretskaya.employeeBase.service.SaveInDB;
+import ru.podgoretskaya.employeeBase.service.DirectoryService;
+import ru.podgoretskaya.employeeBase.service.UserCardService;
+import ru.podgoretskaya.employeeBase.service.SettlementService;
+import ru.podgoretskaya.employeeBase.service.DBService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(APIController.class)
@@ -22,13 +20,13 @@ class APIControllerTest {
     @Autowired
     MockMvc mockMvc;
     @MockBean
-    SaveInDB saveInDB;
+    DBService DBService;
     @MockBean
-    GetCard getCard;
+    UserCardService getCard;
     @MockBean
-    GetAll getAll;
+    DirectoryService directoryService;
     @MockBean
-    GetSettlement getSettlement;
+    SettlementService settlementService;
 
     @Test
     void saveInDB() throws Exception {

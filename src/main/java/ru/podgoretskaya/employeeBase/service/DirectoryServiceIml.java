@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 // список всех сотрудников
-public class GetAllIml implements GetAll {
+public class DirectoryServiceIml implements DirectoryService {
     private final PersonRepo personRepo;
     private final GuideMap guideMap;
 

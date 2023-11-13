@@ -22,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-class GetCardImlTest {
+class UserCardServiceImlTest {
     ObjectMapper objectMapper = new ObjectMapper();
     PersonRepo personRepo = Mockito.mock(PersonRepo.class);
     EmployeeCardMap employeeCardMap = new EmployeeCardMap();
-    GetCard getCard = new GetCardIml(personRepo, employeeCardMap);
+    UserCardService getCard = new UserCardServiceIml(personRepo, employeeCardMap);
     PersonMap personMap = new PersonMap();
 
     @BeforeEach

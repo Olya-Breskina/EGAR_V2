@@ -5,7 +5,7 @@ import ru.podgoretskaya.employeeBase.dto.PersonDTO;
 import ru.podgoretskaya.employeeBase.dto.SickDays;
 import ru.podgoretskaya.employeeBase.dto.Vacation;
 
-public interface SaveInDB {
+public interface DBService {
    String savePerson (PersonDTO dto);
     void saveDayOff (DayOff dto, Long id);
     void saveVacation (Vacation dto, Long id);

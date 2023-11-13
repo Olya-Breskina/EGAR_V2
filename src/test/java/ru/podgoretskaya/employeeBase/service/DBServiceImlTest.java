@@ -22,14 +22,14 @@ import java.io.IOException;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-class SaveInDBImlTest {
+class DBServiceImlTest {
     ObjectMapper objectMapper = new ObjectMapper();
     PersonRepo personRepo = Mockito.mock(PersonRepo.class);
     DaysOffWorkRepo daysOffWorkRepo = Mockito.mock(DaysOffWorkRepo.class);
     PersonMap personMap = new PersonMap();
     DaysOffWorkMap daysOffWorkMap = new DaysOffWorkMap();
     AccountingClient accountingClient = Mockito.mock(AccountingClient.class);
-    SaveInDB saveInDB = new SaveInDBIml(personMap, personRepo, daysOffWorkMap, daysOffWorkRepo, accountingClient);
+    DBService DBService = new DBServiceIml(personMap, personRepo, daysOffWorkMap, daysOffWorkRepo, accountingClient);
 
     @BeforeEach
     void beforeEach() {
@@ -43,7 +43,7 @@ class SaveInDBImlTest {
         PersonEntity personEntity = personMap.toEntity(personDTO);
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
 
-        saveInDB.savePerson(personDTO);
+        DBService.savePerson(personDTO);
 
         Mockito.verify(personRepo).save(personEntity);
         Mockito.verify(accountingClient).getCard(personDTO);
@@ -61,7 +61,7 @@ class SaveInDBImlTest {
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
         Mockito.when(daysOffWorkRepo.save(Mockito.any())).thenReturn(daysOffWorkEntity);
 
-        saveInDB.saveDayOff(dto,id);
+        DBService.saveDayOff(dto,id);
 
         Mockito.verify(personRepo).save(personEntity);
     }
@@ -77,7 +77,7 @@ class SaveInDBImlTest {
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
         Mockito.when(daysOffWorkRepo.save(Mockito.any())).thenReturn(daysOffWorkEntity);
 
-        saveInDB.saveVacation(dto,id);
+        DBService.saveVacation(dto,id);
 
         Mockito.verify(personRepo).save(personEntity);
     }
@@ -93,7 +93,7 @@ class SaveInDBImlTest {
         Mockito.when(personRepo.save(Mockito.any())).thenReturn(personEntity);
         Mockito.when(daysOffWorkRepo.save(Mockito.any())).thenReturn(daysOffWorkEntity);
 
-        saveInDB.saveSickDays(dto,id);
+        DBService.saveSickDays(dto,id);
 
         Mockito.verify(personRepo).save(personEntity);
     }

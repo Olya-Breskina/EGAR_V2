@@ -13,10 +13,10 @@ import java.util.NoSuchElementException;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class GetCardIml implements GetCard {
+// получение катрочки по id
+public class UserCardServiceIml implements UserCardService {
     private final PersonRepo personRepo;
     private final EmployeeCardMap employeeCardMap;
-
     @Override
     public EmployeeCardDTO getCard(Long id) {
         PersonEntity entity = personRepo.findById(id).orElseThrow(NoSuchElementException::new);

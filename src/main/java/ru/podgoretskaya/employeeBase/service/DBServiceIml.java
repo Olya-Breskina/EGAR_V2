@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.podgoretskaya.employeeBase.client.AccountingClient;
 import ru.podgoretskaya.employeeBase.dto.DayOff;
 import ru.podgoretskaya.employeeBase.dto.PersonDTO;
@@ -22,7 +23,7 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 @Slf4j
 // сохранение в бд
-public class SaveInDBIml implements SaveInDB {
+public class DBServiceIml implements DBService {
     private final PersonMap personMap;
     private final PersonRepo personRepo;
     private final DaysOffWorkMap daysOffWorkMap;
@@ -42,6 +43,7 @@ public class SaveInDBIml implements SaveInDB {
     }
 
     @Override
+    @Transactional
     public void saveDayOff(DayOff dto, Long id) {
         DaysOffWorkEntity daysOffWorkEntity;
         PersonEntity personEntity = personRepo.findById(id).orElseThrow(NoSuchElementException::new);
@@ -51,6 +53,7 @@ public class SaveInDBIml implements SaveInDB {
     }
 
     @Override
+    @Transactional
     public void saveVacation(Vacation dto, Long id) {
         DaysOffWorkEntity daysOffWorkEntity;
         PersonEntity personEntity;
@@ -62,6 +65,7 @@ public class SaveInDBIml implements SaveInDB {
     }
 
     @Override
+    @Transactional
     public void saveSickDays(SickDays dto, Long id) {
         DaysOffWorkEntity daysOffWorkEntity;
         PersonEntity personEntity;

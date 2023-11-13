@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class GetSettlementIml implements GetSettlement {
+public class SettlementServiceIml implements SettlementService {
     private final AccountingClient accountingClient;
     private final PersonRepo personRepo;
     private final DaysOffWorkRepo daysOffWorkRepo;
