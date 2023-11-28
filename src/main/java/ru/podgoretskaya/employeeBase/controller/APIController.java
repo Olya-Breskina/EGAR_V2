@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.podgoretskaya.employeeBase.dto.*;
+import ru.podgoretskaya.employeeBase.entity.PersonEntity;
+import ru.podgoretskaya.employeeBase.repository.CriteriaAPIRepo;
+import ru.podgoretskaya.employeeBase.repository.RepoOne;
 import ru.podgoretskaya.employeeBase.service.DirectoryService;
 import ru.podgoretskaya.employeeBase.service.UserCardService;
 import ru.podgoretskaya.employeeBase.service.SettlementService;
@@ -24,9 +27,11 @@ import java.util.List;
 @Tag(name = "работа с базой", description = "Определение API")
 public class APIController {
     private final DBService DBService;
-    private final UserCardService getCard;
+  //  private final UserCardService getCard;
     private final DirectoryService directoryService;
     private final SettlementService settlementService;
+    private final RepoOne repoOne;
+    private final CriteriaAPIRepo criteriaAPIRepo;
 
     @PostMapping(value = "/save")
     @Operation(summary = "сохранение данных сотрудников в базу")
@@ -35,18 +40,31 @@ public class APIController {
         return new ResponseEntity<>(DBService.savePerson(dto), HttpStatus.OK);
     }
 
+//    @PostMapping(value = "/card/{id}")
+//    @Operation(summary = "получение карточки сотрудника по его ID")
+//    public ResponseEntity<EmployeeCardDTO> getCard(@PathVariable("id") Long applicationId) {
+//        log.info("\n>>>>>>>>> " + "вызов /card/{applicationId}. Параметры: \"" + applicationId + " <<<<<<<<<\n");
+//        return new ResponseEntity<>(getCard.getCard(applicationId), HttpStatus.OK);
+//    }
     @PostMapping(value = "/card/{id}")
     @Operation(summary = "получение карточки сотрудника по его ID")
-    public ResponseEntity<EmployeeCardDTO> getCard(@PathVariable("id") Long applicationId) {
+    public ResponseEntity<PersonDTO> getCard(@PathVariable("id") Long applicationId) {
         log.info("\n>>>>>>>>> " + "вызов /card/{applicationId}. Параметры: \"" + applicationId + " <<<<<<<<<\n");
-        return new ResponseEntity<>(getCard.getCard(applicationId), HttpStatus.OK);
+        return new ResponseEntity<>(repoOne.getCard(applicationId), HttpStatus.OK);
     }
+
+//    @GetMapping(value = "/guide")
+//    @Operation(summary = "получение списка всех сотрудников")
+//    public ResponseEntity<List<GuideDTO>> getGuide() {
+//        log.info("\n>>>>>>>>> " + "вызов /guide \"" + " <<<<<<<<<\n");
+//        return new ResponseEntity<>(directoryService.getAll(), HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/guide")
     @Operation(summary = "получение списка всех сотрудников")
-    public ResponseEntity<List<GuideDTO>> getGuide() {
+    public ResponseEntity<List<PersonEntity>> getGuide() {
         log.info("\n>>>>>>>>> " + "вызов /guide \"" + " <<<<<<<<<\n");
-        return new ResponseEntity<>(directoryService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(criteriaAPIRepo.getAll(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/daysOffWork/{id}")

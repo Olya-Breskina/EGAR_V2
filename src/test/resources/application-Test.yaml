@@ -1,0 +1,14 @@
+logging:
+  level:
+    ru.podgoretskaya: DEBUG
+spring:
+  datasource:
+    driver_class_name:
+      org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: 'update'
+  liquibase:
+    change-log: classpath:/db/change-log-master.yaml
+  main:
+    allow-bean-definition-overriding: true

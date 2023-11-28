@@ -17,9 +17,6 @@ spring:
   liquibase:
       enabled: ${LIQUIBASE_ENABLED}
       change-log: classpath:/db/change-log-master.yaml
-      url: ${DB_URL}
-      user: ${DB_USER}
-      password: ${DB_PASSWORD}
   main:
       allow-bean-definition-overriding: true
 #       адрес для AccountingClient, адрес прописан в docker-compose.yml
